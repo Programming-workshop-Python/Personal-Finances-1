@@ -17,8 +17,7 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(200),
                          unique=False,
                          nullable=False)
-    account_id = relationship("FinanceAccount",
-                              back_populates="user_id")
+    account_id = db.relationship('FinanceAccount')
 
     def set_password(self, password):
         self.password = generate_password_hash(password, method='sha256')
@@ -28,3 +27,16 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
+
+
+class FinanceAccount(db.Model):
+    __bind_key__ = 'finances'
+    __tablename__ = 'finance_account'
+
+    id = db.Column(db.Integer,
+                   primary_key=True)
+    count = db.Column(db.Float,
+                      nullable=False)
+    operation_date = db.Column(db.Date,
+                               nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))

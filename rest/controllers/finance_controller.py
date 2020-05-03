@@ -24,7 +24,7 @@ def get_balance():
     return finance_service.get_balance(request)
 
 
-@finance.route('/outgo', methods=['POST'])
+@finance.route('/category', methods=['POST'])
 @login_required
 def add_category():
     return finance_service.add_category(request)

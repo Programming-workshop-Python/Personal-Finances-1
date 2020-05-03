@@ -2,7 +2,7 @@ from app import db
 from flask import jsonify, abort
 from flask_login import current_user, login_user, logout_user
 
-from rest.models.users import User
+from rest.models.models import User
 
 
 def logout():
