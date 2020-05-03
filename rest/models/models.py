@@ -17,7 +17,6 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(200),
                          unique=False,
                          nullable=False)
-    account_id = db.relationship('FinanceAccount')
 
     def set_password(self, password):
         self.password = generate_password_hash(password, method='sha256')

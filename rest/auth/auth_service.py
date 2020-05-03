@@ -3,6 +3,7 @@ from flask import jsonify, abort
 from flask_login import current_user, login_user, logout_user
 
 from rest.models.models import User
+from rest.services.finance_service import create_account
 
 
 def logout():
@@ -29,6 +30,7 @@ def sign_up(request):
         user.set_password(password)
         db.session.add(user)
         db.session.commit()
+        create_account(user.id)
         login_user(user)
         return jsonify(success=True)
     return abort(400, 'message=A user already exists with that email address.')
