@@ -18,10 +18,16 @@ def add_outgo():
     return finance_service.add_outgo(request)
 
 
+@finance.route('/operation_list')
+@login_required
+def get_operation_list():
+    return finance_service.get_operation_list()
+
+
 @finance.route('/balance')
 @login_required
 def get_balance():
-    return finance_service.get_balance(request)
+    return finance_service.get_balance()
 
 
 @finance.route('/category', methods=['POST'])

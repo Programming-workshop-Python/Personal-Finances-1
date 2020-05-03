@@ -36,6 +36,6 @@ class FinanceAccount(db.Model):
                    primary_key=True)
     count = db.Column(db.Float,
                       nullable=False)
-    operation_date = db.Column(db.Date,
+    operation_date = db.Column(db.TIMESTAMP,
                                nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
