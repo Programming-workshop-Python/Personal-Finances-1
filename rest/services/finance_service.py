@@ -2,9 +2,10 @@ from datetime import datetime
 
 from flask import jsonify, abort
 from flask_login import current_user
+from sqlalchemy import and_
 
-from rest.models.models import FinanceAccount
 from app import db
+from rest.models.models import FinanceAccount
 
 
 def create_account(user_id):
@@ -66,11 +67,13 @@ def get_balance():
     return jsonify({'balance': balance})
 
 
-def get_operation_list():
+def get_operation_list(request):
     user_id = str(current_user.id)
+    from_time = request.args.get('from_time')
+    to_time = request.args.get('to_time')
 
-    operations = FinanceAccount.query.filter_by(
-        user_id=user_id
+    operations = FinanceAccount.query.filter(and_(
+        FinanceAccount.operation_date.between(from_time, to_time)), (FinanceAccount.user_id == user_id)
     ).order_by(
         FinanceAccount.operation_date.desc()
     ).all()

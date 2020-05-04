@@ -39,3 +39,15 @@ class FinanceAccount(db.Model):
     operation_date = db.Column(db.TIMESTAMP,
                                nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+
+
+class Category(db.Model):
+    __bind_key__ = 'finances'
+    __tablename__ = 'category'
+
+    id = db.Column(db.Integer,
+                   primary_key=True)
+    category_name = db.Column(db.String(40),
+                              nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))

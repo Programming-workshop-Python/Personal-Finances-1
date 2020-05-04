@@ -21,7 +21,7 @@ def add_outgo():
 @finance.route('/operation_list')
 @login_required
 def get_operation_list():
-    return finance_service.get_operation_list()
+    return finance_service.get_operation_list(request)
 
 
 @finance.route('/balance')
