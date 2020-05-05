@@ -6,7 +6,7 @@ from flask_migrate import Migrate
 app = Flask(__name__)
 app.secret_key = 'secret key'
 
-app.config['SQLALCHEMY_BINDS'] = {'finances': 'postgresql://finance:finance@localhost:5432/finance'}
+app.config['SQLALCHEMY_BINDS'] = {'finances': 'sqlite://'}
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
