@@ -6,6 +6,7 @@ from sqlalchemy import and_
 
 from app import db
 from rest.models.models import FinanceAccount
+from rest.services.category_service import get_category_by_id
 
 
 def create_account(user_id):
@@ -24,10 +25,16 @@ def add_coming(request):
     current_balance = get_current_balance(user_id)
     balance = current_balance + request.json['count']
 
+    category = get_category_by_id(request.json['category_id'])
+    category_id = None
+    if category is not None:
+        category_id = category.id
+
     coming = FinanceAccount(
         user_id=user_id,
         count=balance,
-        operation_date=now
+        operation_date=now,
+        category_id=category_id
     )
 
     db.session.add(coming)
@@ -46,10 +53,16 @@ def add_outgo(request):
     if balance < 0:
         abort(400, 'Operation limit exceeded.')
 
+    category = get_category_by_id(request.json['category_id'])
+    category_id = None
+    if category is not None:
+        category_id = category.id
+
     coming = FinanceAccount(
         user_id=user_id,
         count=balance,
-        operation_date=now
+        operation_date=now,
+        category_id=category_id
     )
 
     db.session.add(coming)

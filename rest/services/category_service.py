@@ -33,6 +33,14 @@ def get_category():
     } for category in categories])
 
 
+def get_category_by_id(category_id):
+    user_id = str(current_user.id)
+    return Category.query.filter_by(
+        id=category_id,
+        user_id=user_id
+    ).limit(1)
+
+
 def _check_category(user_id, category_name):
     category_number = Category.query.filter_by(
         category_name=category_name,
